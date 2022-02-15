@@ -9,6 +9,7 @@ class Tokens:
     TELEGRAM_TOKEN_NAME = 'TELEGRAM_TOKEN'
     CAMERA_TOKEN_NAME = 'CAMERA_TOKEN'
     ADMIN_ID_NAME = 'ADMIN_ID'
+    LOG_PATH_NAME = 'LOG_PATH'
 
     TOKEN_ERROR = 'Отсутствует необходимый токен {}'
 
