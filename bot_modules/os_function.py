@@ -2,23 +2,19 @@ from os import getenv
 
 from dotenv import load_dotenv
 
-TELEGRAM_TOKEN_NAME = 'TELEGRAM_TOKEN'
-CAMERA_TOKEN_NAME = 'CAMERA_TOKEN'
-
-TOKEN_ERROR = 'Отсутствует необходимый токен {}'
-
 load_dotenv()
 
 
-def get_telegram_token():
-    token = getenv(TELEGRAM_TOKEN_NAME)
-    if token is None:
-        raise EnvironmentError(TOKEN_ERROR.format(TELEGRAM_TOKEN_NAME))
-    return token
+class Tokens:
+    TELEGRAM_TOKEN_NAME = 'TELEGRAM_TOKEN'
+    CAMERA_TOKEN_NAME = 'CAMERA_TOKEN'
+    ADMIN_ID_NAME = 'ADMIN_ID'
 
+    TOKEN_ERROR = 'Отсутствует необходимый токен {}'
 
-def get_camera_token():
-    token = getenv(CAMERA_TOKEN_NAME)
-    if token is None:
-        raise EnvironmentError(TOKEN_ERROR.format(CAMERA_TOKEN_NAME))
-    return token
+    @classmethod
+    def get_token(cls, token_name):
+        token = getenv(token_name)
+        if token is None:
+            raise EnvironmentError(cls.TOKEN_ERROR.format(token_name))
+        return token
