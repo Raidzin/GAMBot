@@ -3,7 +3,7 @@ from telebot.types import Message
 
 from bot_modules.bot_logger import logger
 
-GET_COMMAND = 'КОМАНДА {0}, ОТ {1}'
+GET_COMMAND = 'КОМАНДА {0}, ОТ {1}, {2}, {3}'
 SUCCESS = 'ФУНКЦИЯ {0} УСПЕХ '
 START = 'БОТ ЗАПУЩЕН'
 
@@ -24,7 +24,12 @@ class BaseBot:
 
     def do_command(self, message: Message):
         command = message.text[1:]
-        logger.info(GET_COMMAND.format(command, message.from_user.username))
+        logger.info(GET_COMMAND.format(
+            command,
+            message.from_user.username,
+            message.from_user.first_name,
+            message.from_user.last_name,
+        ))
         if command not in self.commands:
             self.bot.send_message(message.from_user.id, 'нет такой команды')
 
