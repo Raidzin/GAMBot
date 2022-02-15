@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-from os_function import Tokens
+from bot_modules.os_function import Tokens
 
 LOG_PATH = Tokens.get_token(Tokens.LOG_PATH_NAME)
 LOG_FILE_NAME = f'{LOG_PATH}.GAM.log'
