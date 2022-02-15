@@ -1,32 +1,24 @@
-from telebot import TeleBot
-
 from bot_modules.os_function import Tokens
-from bot_modules.commands import Commands
 from bot_modules.bot_logger import logger
+from bot_modules.camera import get_photo
+from bot_modules.base_bot import BaseBot, Message
 
-ADMIN_ID = 'None'
 
+class GAMbot(BaseBot):
 
-class GAMbot:
-    bot = TeleBot(
-        token=Tokens.get_token(
-            Tokens.TELEGRAM_TOKEN_NAME
+    def command_start(self, message: Message):
+        self.bot.send_message(message.from_user.id, ':0')
+
+    def command_photo(self, message: Message):
+        self.bot.send_photo(message.from_user.id, get_photo())
+
+    def command_commands(self, message: Message):
+        self.bot.send_message(
+            message.from_user.id,
+            '\n'.join(['/' + command for command in self.commands])
         )
-    )
-
-    @classmethod
-    def message_handler(cls):
-        @cls.bot.message_handler()
-        def do_command(message):
-            Commands.do_command(cls.bot, message)
-
-    logger.info('bot start')
-
-    @classmethod
-    def run(cls, interval=0):
-        cls.message_handler()
-        cls.bot.polling(none_stop=True, interval=interval)
 
 
 if __name__ == '__main__':
-    GAMbot.run()
+    bot = GAMbot(Tokens.get_token(Tokens.TELEGRAM_TOKEN_NAME))
+    bot.run()
