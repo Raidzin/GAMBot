@@ -1,3 +1,5 @@
+import requests
+
 from bot_modules.os_function import Tokens
 from bot_modules.bot_logger import logger
 from bot_modules.camera import get_photo
@@ -16,6 +18,12 @@ class GAMbot(BaseBot):
         self.bot.send_message(
             message.from_user.id,
             '\n'.join(['/' + command for command in self.commands])
+        )
+
+    def command_ip(self, message: Message):
+        self.bot.send_message(
+            message.from_user.id,
+            requests.get('https://ident.me').text
         )
 
 
