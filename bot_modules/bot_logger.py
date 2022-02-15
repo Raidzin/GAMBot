@@ -1,7 +1,8 @@
 import logging
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
-LOG_FILE_NAME = f'{__name__}.gam.log'
+LOG_FILE_NAME = f'{str(Path.home())}/.GAM.log'
 FILE_SIZE = 10 * 1024 ** 3
 ENCODING = 'utf-8'
 FORMAT = '%(levelname)s - %(asctime)s - %(funcName)s - %(message)s'
