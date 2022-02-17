@@ -1,6 +1,6 @@
 import requests
 
-from bot_modules.os_function import Tokens
+from bot_modules.os_function import Config
 from bot_modules.bot_logger import logger
 from bot_modules.camera import get_photo
 from bot_modules.base_bot import BaseBot, Message
@@ -28,5 +28,5 @@ class GAMbot(BaseBot):
 
 
 if __name__ == '__main__':
-    bot = GAMbot(Tokens.get_token(Tokens.TELEGRAM_TOKEN_NAME))
+    bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
     bot.run()

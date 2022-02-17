@@ -1,10 +1,10 @@
 from requests import get
 
-from bot_modules.os_function import Tokens
+from bot_modules.os_function import Config
 
 URL = 'http://192.168.77.60/image.jpg'
 HEADERS = {
-    'Authorization': f'Basic {Tokens.get_token(Tokens.CAMERA_TOKEN_NAME)}'
+    'Authorization': f'Basic {Config.get_token(Config.CAMERA_TOKEN_NAME)}'
 }
 CAMERA_ERROR = 'Не удалось получить фото с камеры, {}'
 
