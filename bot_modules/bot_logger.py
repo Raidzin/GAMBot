@@ -67,7 +67,7 @@ def get_info_logs_tail(n):
             break
         if log.level == 'INFO':
             logs_tail.append(log)
-    return logs_tail
+    return logs_tail[::-1]
 
 
 def to_telegram_logs(logs):
