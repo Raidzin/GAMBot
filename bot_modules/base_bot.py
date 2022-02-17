@@ -20,7 +20,7 @@ class BaseBot:
         @self.bot.message_handler()
         def message_handler(message):
             self.do_command(message)
-            logger.info(SUCCESS.format(message.text))
+            logger.debug(SUCCESS.format(message.text))
 
     def do_command(self, message: Message):
         command = message.text[1:]

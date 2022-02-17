@@ -1,7 +1,7 @@
 import requests
 
-from bot_modules.os_function import Config
-from bot_modules.bot_logger import logger
+from bot_modules.configurator import Config
+from bot_modules.bot_logger import get_info_logs_tail, to_telegram_logs
 from bot_modules.camera import get_photo
 from bot_modules.base_bot import BaseBot, Message
 
@@ -24,6 +24,12 @@ class GAMbot(BaseBot):
         self.bot.send_message(
             message.from_user.id,
             requests.get('https://ident.me').text
+        )
+
+    def command_logs(self, message: Message):
+        self.bot.send_message(
+            message.from_user.id,
+            to_telegram_logs(get_info_logs_tail(5))
         )
 
 

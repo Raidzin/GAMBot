@@ -1,5 +1,5 @@
 from bot import GAMbot
-from bot_modules.os_function import Config
+from bot_modules.configurator import Config
 from bot_modules.bot_logger import logger
 
 BOT_ERROR = 'Произошла ошибка {0} {1}'

@@ -1,6 +1,6 @@
 from requests import get
 
-from bot_modules.os_function import Config
+from bot_modules.configurator import Config
 
 URL = 'http://192.168.77.60/image.jpg'
 HEADERS = {
