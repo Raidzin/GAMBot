@@ -7,12 +7,14 @@ from bot_modules.base_bot import BaseBot, Message
 
 
 class GAMbot(BaseBot):
+    camera_enabled = True
 
     def command_start(self, message: Message):
         self.bot.send_message(message.from_user.id, ':0')
 
     def command_photo(self, message: Message):
-        self.bot.send_photo(message.from_user.id, get_photo())
+        if self.camera_enabled:
+            self.bot.send_photo(message.from_user.id, get_photo())
 
     def command_commands(self, message: Message):
         self.bot.send_message(
@@ -32,7 +34,11 @@ class GAMbot(BaseBot):
             to_telegram_logs(get_info_logs_tail(5))
         )
 
+    def command_switch(self, message: Message):
+        self.camera_enabled = not self.camera_enabled
+
+
+bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
 
 if __name__ == '__main__':
-    bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
     bot.run()

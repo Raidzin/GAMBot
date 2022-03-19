@@ -1,4 +1,4 @@
-from bot import GAMbot
+from bot import bot
 from bot_modules.configurator import Config
 from bot_modules.bot_logger import logger
 
@@ -7,7 +7,6 @@ BOT_STOP = 'БОТ ОСТАНОВЛЕН'
 
 while True:
     try:
-        bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
         bot.run(interval=2)
     except Exception as error:
         error_message = BOT_ERROR.format(type(error), error)

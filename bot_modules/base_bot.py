@@ -9,6 +9,14 @@ START = 'БОТ ЗАПУЩЕН'
 
 
 class BaseBot:
+    """
+    Базовый класс бота.
+    Вы должный унаследовать свой класс Bot(BaseBot):
+    в нём пишутся команды по типу command_start(self, message)
+    где start это команда на которую будет отвечать бот,
+    а message это сообщения класса telebot.types Message
+    """
+
     def __init__(self, token):
         self.bot = TeleBot(token=token)
         self.commands = [
@@ -17,12 +25,23 @@ class BaseBot:
         ]
 
     def message_handler(self):
+        """
+        Функция, которая создаёт необходимый handler для работы библиотеки
+        pytelegrambotapi т передаёт полученные сообщения в функцию do_command
+        """
+
         @self.bot.message_handler()
         def message_handler(message):
             self.do_command(message)
             logger.debug(SUCCESS.format(message.text))
 
     def do_command(self, message: Message):
+        """
+        Функция принимает сообщение от пользователя проверяет её наличие
+        и вызывает если имеется
+        :param message: сообщениу типа telebot.types Message
+        :return:
+        """
         command = message.text[1:]
         logger.info(GET_COMMAND.format(
             command,
@@ -37,6 +56,11 @@ class BaseBot:
             getattr(self, 'command_' + command)(message)
 
     def run(self, interval=0):
+        """
+        Функция запуска бота
+        :param interval: интервал опроса телеги
+        :return:
+        """
         self.message_handler()
         logger.info(START)
         self.bot.polling(none_stop=True, interval=interval)
