@@ -36,7 +36,7 @@ class GAMbot(BaseBot):
 
     def command_switch(self, message: Message):
         self.camera_enabled = not self.camera_enabled
-        if self.camera_enabled:
+        if not self.camera_enabled:
             self.bot.send_message(message.from_user.id, 'выключено')
         else:
             self.bot.send_message(message.from_user.id, 'включено')
