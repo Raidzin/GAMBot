@@ -34,7 +34,10 @@ class GAMbot(BaseBot):
 
     def command_switch(self, message: Message):
         enabled = Camera.switch()
-        self.bot.send_message()
+        self.bot.send_message(
+            message.from_user.id,
+            enabled,
+        )
 
 
 bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
