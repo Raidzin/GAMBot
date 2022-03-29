@@ -27,7 +27,7 @@ class BaseBot:
     def message_handler(self):
         """
         Функция, которая создаёт необходимый handler для работы библиотеки
-        pytelegrambotapi т передаёт полученные сообщения в функцию do_command
+        pytelegrambotapi и передаёт полученные сообщения в функцию do_command
         """
 
         @self.bot.message_handler()
@@ -39,7 +39,7 @@ class BaseBot:
         """
         Функция принимает сообщение от пользователя проверяет её наличие
         и вызывает если имеется
-        :param message: сообщениу типа telebot.types Message
+        :param message: сообщении типа telebot.types Message
         :return:
         """
         command = message.text[1:]
