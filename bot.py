@@ -37,6 +37,7 @@ class GAMbot(BaseBot):
         self.bot.send_message()
 
 
+bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
+
 if __name__ == '__main__':
-    bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
     bot.run()
