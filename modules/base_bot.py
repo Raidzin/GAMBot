@@ -1,8 +1,8 @@
 from telebot import TeleBot
 from telebot.types import Message
 
-from bot_modules.bot_logger import logger
-from bot_modules.camera import SkipCommand
+from modules.bot_logger import logger
+from modules.exceptions import SkipCommand
 
 GET_COMMAND = 'КОМАНДА {0}, ОТ {1}, {2}, {3}'
 SUCCESS = 'ФУНКЦИЯ {0} УСПЕХ '
@@ -38,8 +38,8 @@ class BaseBot:
 
     def do_command(self, message: Message):
         """
-        Функция принимает сообщение от пользователя проверяет её наличие
-        и вызывает если имеется
+        Функция принимает сообщение от пользователя, проверяет наличие такой
+        команды и вызывает её если она существует.
         :param message: сообщении типа telebot.types Message
         :return:
         """

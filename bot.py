@@ -2,10 +2,10 @@ import os
 
 import requests
 
-from bot_modules.configurator import Config
-from bot_modules.bot_logger import get_info_logs_tail, to_telegram_logs
-from bot_modules.camera import Camera
-from bot_modules.base_bot import BaseBot, Message
+from modules.configurator import Config
+from modules.bot_logger import get_info_logs_tail, to_telegram_logs
+from modules.camera import Camera
+from modules.base_bot import BaseBot, Message
 
 
 class GAMbot(BaseBot):

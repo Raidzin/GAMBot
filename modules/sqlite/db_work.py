@@ -1,5 +1,5 @@
 import sqlite3
-from bot_modules.configurator import Config
+from modules.configurator import Config
 
 
 class DataBase:

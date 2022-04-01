@@ -1,6 +1,6 @@
 from bot import bot
-from bot_modules.configurator import Config
-from bot_modules.bot_logger import logger
+from modules.configurator import Config
+from modules.bot_logger import logger
 
 BOT_ERROR = 'Произошла ошибка {0} {1}'
 BOT_STOP = 'БОТ ОСТАНОВЛЕН'

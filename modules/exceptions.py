@@ -1,0 +1,2 @@
+class SkipCommand(Exception):
+    pass
