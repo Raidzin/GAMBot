@@ -61,7 +61,7 @@ class Camera:
             raise ConnectionError(cls.CAMERA_ERROR.format(error))
 
     @classmethod
-    def get_video(cls, duration=5):
+    def get_video(cls, duration=10):
         video = VideoClip(make_frame=get_frame_from_camera, duration=duration)
         file_name = f'video_{randint(1000, 9999)}.mp4'
         video.write_videofile(file_name, fps=Camera.frame_rate, audio=False)

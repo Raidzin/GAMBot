@@ -17,6 +17,7 @@ class GAMbot(BaseBot):
         self.bot.send_photo(message.from_user.id, Camera.get_photo())
 
     def command_video(self, message: Message):
+        self.bot.send_message(message.from_user.id, 'подождите 10 сек')
         filename = Camera.get_video()
         with open(filename, 'rb') as video:
             self.bot.send_video(message.from_user.id, video)
