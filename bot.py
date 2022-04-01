@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 from bot_modules.configurator import Config
@@ -13,6 +15,19 @@ class GAMbot(BaseBot):
 
     def command_photo(self, message: Message):
         self.bot.send_photo(message.from_user.id, Camera.get_photo())
+
+    def command_video(self, message: Message):
+        filename = Camera.get_video()
+        with open(filename, 'rb') as video:
+            self.bot.send_video(message.from_user.id, video)
+        os.remove(filename)
+
+    def command_switch(self, message: Message):
+        enabled = Camera.switch()
+        self.bot.send_message(
+            message.from_user.id,
+            enabled,
+        )
 
     def command_commands(self, message: Message):
         self.bot.send_message(
@@ -30,13 +45,6 @@ class GAMbot(BaseBot):
         self.bot.send_message(
             message.from_user.id,
             to_telegram_logs(get_info_logs_tail(5))
-        )
-
-    def command_switch(self, message: Message):
-        enabled = Camera.switch()
-        self.bot.send_message(
-            message.from_user.id,
-            enabled,
         )
 
 

@@ -1,7 +1,16 @@
 certifi==2021.10.8
 charset-normalizer==2.0.12
+colorama==0.4.4
+decorator==4.4.2
 idna==3.3
+imageio==2.16.1
+imageio-ffmpeg==0.4.5
+moviepy==1.0.3
+numpy==1.22.3
+Pillow==9.0.1
+proglog==0.1.9
 pyTelegramBotAPI==4.4.0
 python-dotenv==0.19.2
 requests==2.27.1
+tqdm==4.63.1
 urllib3==1.26.8

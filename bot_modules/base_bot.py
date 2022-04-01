@@ -2,6 +2,7 @@ from telebot import TeleBot
 from telebot.types import Message
 
 from bot_modules.bot_logger import logger
+from bot_modules.camera import SkipCommand
 
 GET_COMMAND = 'КОМАНДА {0}, ОТ {1}, {2}, {3}'
 SUCCESS = 'ФУНКЦИЯ {0} УСПЕХ '
@@ -51,9 +52,11 @@ class BaseBot:
         ))
         if command not in self.commands:
             self.bot.send_message(message.from_user.id, 'нет такой команды')
-
         else:
-            getattr(self, 'command_' + command)(message)
+            try:
+                getattr(self, 'command_' + command)(message)
+            except SkipCommand:
+                pass
 
     def run(self, interval=0):
         """
