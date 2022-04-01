@@ -24,12 +24,12 @@ class Camera:
 
     @classmethod
     def get_photo(cls):
-        if cls.enabled:
-            try:
-                return get(cls.URL, headers=cls.HEADERS).content
-            except Exception as error:
-                raise ConnectionError(cls.CAMERA_ERROR.format(error))
-        raise SkipCommand
+        if not cls.enabled:
+            raise SkipCommand
+        try:
+            return get(cls.URL, headers=cls.HEADERS).content
+        except Exception as error:
+            raise ConnectionError(cls.CAMERA_ERROR.format(error))
 
     @classmethod
     def get_numpy_image(cls, *args):
@@ -38,6 +38,8 @@ class Camera:
 
     @classmethod
     def get_video(cls, duration=5):
+        if not cls.enabled:
+            raise SkipCommand
         file_name = f'video_{randint(1000, 9999)}.mp4'
         video = VideoClip(make_frame=cls.get_numpy_image, duration=duration)
         video.write_videofile(file_name, fps=Camera.frame_rate, audio=False)
