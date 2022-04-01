@@ -4,13 +4,17 @@
 ## Процедура запуска:
 
 #### Скачать проект
-`git clone https://github.com/Raidzin/GAMBot.git`
+```shell
+git clone https://github.com/Raidzin/GAMBot.git
+```
 
 #### Установить необходимые зависимости
 
 В директории проекта
 
-`pip install -r requirements.txt`
+```shell
+pip install -r requirements.txt
+```
 
 #### Создать файл `.env` в директории проекта и вписать в него необходимые переменные
 ```
@@ -29,8 +33,10 @@ DB_NAME=<имя файла базы данных sqlite3>
  
 В директории проекта
 
-`python run_bot.py`
+```shell
+python run_bot.py
+```
 
 ## Авторы:
 
-- [RAIDZIN](https://github.com/Raidzin)
+- [RAIDZIN](https://github.com/Raidzin, "GitHub")
