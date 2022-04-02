@@ -3,9 +3,9 @@ from logging.handlers import RotatingFileHandler
 
 import datetime as dt
 
-from modules.settings.default_settings import Config
+from modules.settings.default_settings import LOG_FILE_ABSOLUTE_PATH
 
-LOG_FILE = Config.get_path(Config.LOG_PATH)
+LOG_FILE = LOG_FILE_ABSOLUTE_PATH
 FILE_SIZE = 10 * 1024 ** 3
 ENCODING = 'utf-8'
 FORMAT = '%(levelname)s - %(asctime)s - %(funcName)s - %(message)s'
@@ -45,7 +45,7 @@ class Log:
 
 def get_logs():
     with open(
-            Config.get_path(Config.LOG_PATH),
+            LOG_FILE_ABSOLUTE_PATH,
             mode='r',
             encoding='utf-8'
     ) as file:
