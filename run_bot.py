@@ -1,9 +1,8 @@
 from bot import bot
-from modules.configurator import Config
+from modules.settings.default_settings import ADMIN_ID
 from modules.bot_logger import logger
 
 BOT_ERROR = 'Произошла ошибка {0} {1}'
-BOT_STOP = 'БОТ ОСТАНОВЛЕН'
 
 while True:
     try:
@@ -12,7 +11,7 @@ while True:
         error_message = BOT_ERROR.format(type(error), error)
         try:
             bot.bot.send_message(
-                Config.get_token(Config.ADMIN_ID_NAME),
+                ADMIN_ID,
                 error_message)
         finally:
             logger.error(error_message)

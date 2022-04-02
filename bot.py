@@ -2,7 +2,7 @@ import os
 
 import requests
 
-from modules.configurator import Config
+from modules.settings.default_settings import TELEGRAM_TOKEN
 from modules.bot_logger import get_info_logs_tail, to_telegram_logs
 from modules.camera import Camera
 from modules.base_bot import BaseBot, Message
@@ -49,7 +49,7 @@ class GAMbot(BaseBot):
         )
 
 
-bot = GAMbot(Config.get_token(Config.TELEGRAM_TOKEN_NAME))
+bot = GAMbot(TELEGRAM_TOKEN)
 
 if __name__ == '__main__':
     bot.run()

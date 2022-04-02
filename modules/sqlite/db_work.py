@@ -1,5 +1,5 @@
 import sqlite3
-from modules.configurator import Config
+from modules.settings.default_settings import Config
 
 
 class DataBase:

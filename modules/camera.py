@@ -7,9 +7,12 @@ from moviepy.editor import VideoClip
 from PIL import Image, ImageDraw
 import numpy as np
 
-from modules.configurator import Config
 from modules.exceptions import SkipCommand
+from modules.settings.default_settings import (CAMERA_TOKEN,
+                                               CAMERA_IMAGE_URL,
+                                               CAMERA_ENABLED)
 
+CAMERA_ERROR = 'Не удалось получить фото с камеры, {}'
 DATE_FORMAT = '%a %d-%m-%Y\n%H:%M %S'
 """
 пример:
@@ -23,7 +26,7 @@ def add_date_to_image(image):
     draw_text.text(
         (10, 10),
         f'{datetime.datetime.now().strftime(DATE_FORMAT)}',
-        fill='#F0F0F0'
+        fill='#F8F8FF',  # призрачно белый
     )
     return image
 
@@ -43,12 +46,10 @@ def get_frame_from_camera(*args):
 
 
 class Camera:
-    enabled = True
+    enabled = CAMERA_ENABLED
     frame_rate = 10
-    URL = 'http://192.168.77.60/image.jpg'
-    CAMERA_ERROR = 'Не удалось получить фото с камеры, {}'
     HEADERS = {
-        'Authorization': f'Basic {Config.get_token(Config.CAMERA_TOKEN_NAME)}'
+        'Authorization': f'Basic {CAMERA_TOKEN}'
     }
 
     @classmethod
@@ -56,9 +57,9 @@ class Camera:
         if not cls.enabled:
             raise SkipCommand
         try:
-            return get(cls.URL, headers=cls.HEADERS).content
+            return get(CAMERA_IMAGE_URL, headers=cls.HEADERS).content
         except Exception as error:
-            raise ConnectionError(cls.CAMERA_ERROR.format(error))
+            raise ConnectionError(CAMERA_ERROR.format(error))
 
     @classmethod
     def get_video(cls, duration=10):

@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 
 import datetime as dt
 
-from modules.configurator import Config
+from modules.settings.default_settings import Config
 
 LOG_FILE = Config.get_path(Config.LOG_PATH)
 FILE_SIZE = 10 * 1024 ** 3
