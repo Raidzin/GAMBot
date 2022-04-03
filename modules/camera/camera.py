@@ -1,20 +1,16 @@
-import io
 from random import randint
 from tempfile import gettempdir
 import os
 
 import numpy as np
-from requests import get
 from moviepy.editor import VideoClip
-from PIL import Image
 
 from modules.exceptions import SkipCommand
 from modules.camera.video_filters import process_frame, add_datetime
+import modules.camera.camera_interface as camera_interface
 from modules.settings.default_settings import (CAMERA_TOKEN,
                                                CAMERA_IMAGE_URL,
                                                CAMERA_ENABLED)
-
-CAMERA_ERROR = 'Не удалось получить фото с камеры, {}'
 
 
 def get_video_file_name():
@@ -66,12 +62,7 @@ class Camera:
     def get_photo(cls):
         if not cls.enabled:
             raise SkipCommand
-        try:
-            return Image.open(io.BytesIO(get(
-                CAMERA_IMAGE_URL,
-                headers=cls.HEADERS).content))
-        except Exception as error:
-            raise ConnectionError(CAMERA_ERROR.format(error))
+        return camera_interface.get_photo(CAMERA_IMAGE_URL, cls.HEADERS)
 
     @classmethod
     def get_video_frame(cls, *args):
