@@ -50,7 +50,7 @@ def get_frame_from_camera(*args):
 def get_video_file_name():
     file_name = os.path.join(
         gettempdir(),
-        'GAM'
+        'GAM',
         f'video_{randint(1000, 9999)}.mp4'
     )
     video_folder = os.path.dirname(file_name)
