@@ -1,7 +1,7 @@
 import datetime
 import io
 from random import randint
-from tempfile import TemporaryFile
+from tempfile import gettempdir
 import os
 
 from requests import get
@@ -47,6 +47,18 @@ def get_frame_from_camera(*args):
     )
 
 
+def get_video_file_name():
+    file_name = os.path.join(
+        gettempdir(),
+        'GAM'
+        f'video_{randint(1000, 9999)}.mp4'
+    )
+    video_folder = os.path.dirname(file_name)
+    if not os.path.exists(video_folder):
+        os.makedirs(video_folder)
+    return file_name
+
+
 class Camera:
     enabled = CAMERA_ENABLED
     frame_rate = 10
@@ -65,22 +77,21 @@ class Camera:
 
     @classmethod
     def get_video(cls, duration=10):
-        file_name = f'video_{randint(1000, 9999)}.mp4'
-        tempfile = TemporaryFile()
+        file_name = get_video_file_name()
         try:
             video = VideoClip(
                 make_frame=get_frame_from_camera,
                 duration=duration
             )
             video.write_videofile(
-                tempfile,
+                file_name,
                 fps=Camera.frame_rate,
                 audio=False
             )
-            return tempfile
+            return file_name
         except Exception as error:
             try:
-                os.remove(tempfile)
+                os.remove(file_name)
             except FileNotFoundError:
                 pass
             raise error
