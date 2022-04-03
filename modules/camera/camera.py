@@ -74,7 +74,7 @@ class Camera:
             raise ConnectionError(CAMERA_ERROR.format(error))
 
     @classmethod
-    def get_video_frame(cls):
+    def get_video_frame(cls, *args):
         filters = add_datetime,
         frame = process_frame(cls.get_photo(), filters)
         return np.array(frame)
