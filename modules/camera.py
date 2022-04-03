@@ -1,6 +1,8 @@
 import datetime
 import io
 from random import randint
+from tempfile import gettempdir
+import os
 
 from requests import get
 from moviepy.editor import VideoClip
@@ -63,10 +65,25 @@ class Camera:
 
     @classmethod
     def get_video(cls, duration=10):
-        video = VideoClip(make_frame=get_frame_from_camera, duration=duration)
-        file_name = f'video_{randint(1000, 9999)}.mp4'
-        video.write_videofile(file_name, fps=Camera.frame_rate, audio=False)
-        return file_name
+        file_name = os.path.join(
+            gettempdir(),
+            'GAM',
+            f'video_{randint(1000, 9999)}.mp4'
+        )
+        try:
+            video = VideoClip(
+                make_frame=get_frame_from_camera,
+                duration=duration
+            )
+            video.write_videofile(
+                file_name,
+                fps=Camera.frame_rate,
+                audio=False
+            )
+            return file_name
+        except Exception as error:
+            os.remove(file_name)
+            raise error
 
     @classmethod
     def switch(cls):
