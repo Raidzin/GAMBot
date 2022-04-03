@@ -82,7 +82,10 @@ class Camera:
             )
             return file_name
         except Exception as error:
-            os.remove(file_name)
+            try:
+                os.remove(file_name)
+            except FileNotFoundError:
+                pass
             raise error
 
     @classmethod
