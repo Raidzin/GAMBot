@@ -70,6 +70,7 @@ class Camera:
             'GAM',
             f'video_{randint(1000, 9999)}.mp4'
         )
+        os.mkdir(file_name)
         try:
             video = VideoClip(
                 make_frame=get_frame_from_camera,
