@@ -45,7 +45,7 @@ class Log:
 
 def get_logs():
     with open(
-            LOG_FILE_ABSOLUTE_PATH,
+            LOG_FILE,
             mode='r',
             encoding='utf-8'
     ) as file:
