@@ -4,7 +4,7 @@ import requests
 
 from modules.settings.default_settings import TELEGRAM_TOKEN
 from modules.bot_logger import get_info_logs_tail, to_telegram_logs
-from modules.camera import Camera
+from modules.camera.camera import Camera
 from modules.base_bot import BaseBot, Message
 
 

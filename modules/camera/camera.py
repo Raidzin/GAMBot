@@ -1,50 +1,20 @@
-import datetime
 import io
 from random import randint
 from tempfile import gettempdir
 import os
 
+import numpy as np
 from requests import get
 from moviepy.editor import VideoClip
-from PIL import Image, ImageDraw
-import numpy as np
+from PIL import Image
 
 from modules.exceptions import SkipCommand
+from modules.camera.video_filters import process_frame, add_datetime
 from modules.settings.default_settings import (CAMERA_TOKEN,
                                                CAMERA_IMAGE_URL,
                                                CAMERA_ENABLED)
 
 CAMERA_ERROR = 'Не удалось получить фото с камеры, {}'
-DATE_FORMAT = '%a %d-%m-%Y\n%H:%M %S'
-"""
-пример:
-Fri 01-04-2022
-17:25 24
-"""
-
-
-def add_date_to_image(image):
-    draw_text = ImageDraw.Draw(image)
-    draw_text.text(
-        (10, 10),
-        f'{datetime.datetime.now().strftime(DATE_FORMAT)}',
-        fill='#F8F8FF',  # призрачно белый
-    )
-    return image
-
-
-def get_image_from_photo(photo):
-    return Image.open(io.BytesIO(photo))
-
-
-def get_frame_from_camera(*args):
-    return np.array(
-        add_date_to_image(
-            get_image_from_photo(
-                Camera.get_photo()
-            )
-        )
-    )
 
 
 def get_video_file_name():
@@ -67,20 +37,16 @@ class Camera:
     }
 
     @classmethod
-    def get_photo(cls):
-        if not cls.enabled:
-            raise SkipCommand
-        try:
-            return get(CAMERA_IMAGE_URL, headers=cls.HEADERS).content
-        except Exception as error:
-            raise ConnectionError(CAMERA_ERROR.format(error))
+    def switch(cls):
+        cls.enabled = not cls.enabled
+        return 'ВКЛЮЧЕНО' if cls.enabled else 'ВЫКЛЮЧЕНО'
 
     @classmethod
     def get_video(cls, duration=10):
         file_name = get_video_file_name()
         try:
             video = VideoClip(
-                make_frame=get_frame_from_camera,
+                make_frame=cls.get_video_frame,
                 duration=duration
             )
             video.write_videofile(
@@ -97,6 +63,18 @@ class Camera:
             raise error
 
     @classmethod
-    def switch(cls):
-        cls.enabled = not cls.enabled
-        return 'ВКЛЮЧЕНО' if cls.enabled else 'ВЫКЛЮЧЕНО'
+    def get_photo(cls):
+        if not cls.enabled:
+            raise SkipCommand
+        try:
+            return Image.open(io.BytesIO(get(
+                CAMERA_IMAGE_URL,
+                headers=cls.HEADERS).content))
+        except Exception as error:
+            raise ConnectionError(CAMERA_ERROR.format(error))
+
+    @classmethod
+    def get_video_frame(cls):
+        filters = add_datetime,
+        frame = process_frame(cls.get_photo(), filters)
+        return np.array(frame)
