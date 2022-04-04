@@ -1,4 +1,4 @@
-from base_bot import Message
+from modules.base_bot import Message
 from modules.db.core import get_session
 from modules.db.models import Log
 
