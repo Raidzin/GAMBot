@@ -11,7 +11,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
     pk = sql.Column(sql.Integer, primary_key=True)
-    username = sql.Column(sql.String(100), nullable=False)
+    username = sql.Column(sql.String(100), nullable=True)
     first_name = sql.Column(sql.String(100), nullable=True)
     last_name = sql.Column(sql.String(100), nullable=True)
     role = sql.Column(sql.Integer, default=3)

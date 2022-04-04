@@ -19,13 +19,8 @@ def get_or_create(model, defaults=None, **kwargs):
         return instance, False
     else:
         kwargs |= defaults or {}
+        print(kwargs)
         instance = model(**kwargs)
-        try:
-            session.add(instance)
-            session.commit()
-        except Exception:
-            session.rollback()
-            instance = session.query(model).filter_by(**kwargs).one()
-            return instance, True
-        else:
-            return instance, True
+        session.add(instance)
+        session.commit()
+        return instance, True
