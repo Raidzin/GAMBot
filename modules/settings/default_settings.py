@@ -8,6 +8,7 @@ ADMIN_ID = get_token('ADMIN_ID')
 BASE_PATH = os.getcwd()
 LOG_FILE_ABSOLUTE_PATH = os.path.join(BASE_PATH, '.GAM.log')
 
+DB_PATH_IS_ABSOLUTE = False
 DB_PATH = get_token('DB_PATH')
 
 CAMERA_ENABLED = True
