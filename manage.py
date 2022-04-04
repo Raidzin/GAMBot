@@ -33,3 +33,5 @@ match argv[1]:
         make_db()
     case 'run_bot':
         run_bot()
+    case _:
+        print('Команда не найдена')
