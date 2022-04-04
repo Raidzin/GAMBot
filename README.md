@@ -34,14 +34,14 @@
 4. #### Необходимое конфигурирование
    - запустить файл 
        ```shell
-       python manage.py make_db
+       python manage.py migrate
        ```
 5. #### Запуск бота
 
    В директории проекта
 
     ```shell
-    python manage.py run_bot
+    python manage.py runbot
     ```
 
 ## Авторы:

@@ -47,7 +47,3 @@ class Logger:
         session.add(rec)
         session.commit()
         session.close()
-
-
-if __name__ == '__main__':
-    Logger.info('тестовый лог')

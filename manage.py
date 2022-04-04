@@ -1,7 +1,7 @@
 from sys import argv
 
 
-def make_db():
+def migrate():
     from modules.db.models import Base, engine
     Base.metadata.create_all(engine)
     print('База данных успешно записана!')
@@ -29,9 +29,9 @@ def run_bot():
 
 
 match argv[1]:
-    case 'make_db':
-        make_db()
-    case 'run_bot':
+    case 'migrate':
+        migrate()
+    case 'runbot':
         run_bot()
     case _:
         print('Команда не найдена')
