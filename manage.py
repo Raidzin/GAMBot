@@ -10,7 +10,7 @@ def make_db():
 def run_bot():
     from bot import bot
     from modules.settings.default_settings import ADMIN_ID
-    from modules.bot_logger import logger
+    from modules.logger import Logger
 
     BOT_ERROR = 'Произошла ошибка {0} {1}'
     print('Бот запущен')
@@ -25,7 +25,7 @@ def run_bot():
                     ADMIN_ID,
                     error_message)
             finally:
-                logger.error(error_message)
+                Logger.error(error_message)
 
 
 match argv[1]:

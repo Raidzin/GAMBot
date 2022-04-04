@@ -1,12 +1,12 @@
 from telebot import TeleBot
 from telebot.types import Message
 
-from modules.bot_logger import logger
+from modules.logger import Logger
 from modules.exceptions import SkipCommand
 from modules.db.core import get_or_create
 from modules.db.models import User
 
-GET_COMMAND = 'КОМАНДА {0}, ОТ {1}, {2}, {3}'
+GET_COMMAND = 'КОМАНДА {0}'
 SUCCESS = 'ФУНКЦИЯ {0} УСПЕХ '
 START = 'БОТ ЗАПУЩЕН'
 
@@ -47,22 +47,20 @@ class BaseBot:
         @self.bot.message_handler()
         def message_handler(message):
             self.do_command(message)
-            logger.debug(SUCCESS.format(message.text))
+            Logger.debug(SUCCESS.format(message.text))
 
     def do_command(self, message: Message):
         """
         Функция принимает сообщение от пользователя, проверяет наличие такой
         команды и вызывает её если она существует.
         :param message: сообщении типа telebot.types Message
-        :return:
         """
         command = message.text[1:]
-        logger.info(GET_COMMAND.format(
-            command,
-            message.from_user.username,
-            message.from_user.first_name,
-            message.from_user.last_name,
-        ))
+        Logger.info(
+            log_message=GET_COMMAND.format(command),
+            command=command,
+            message=message
+        )
         if command not in self.commands:
             self.bot.send_message(message.from_user.id, 'нет такой команды')
         else:
@@ -75,10 +73,9 @@ class BaseBot:
         """
         Функция запуска бота
         :param interval: интервал опроса телеги
-        :return:
         """
         self.message_handler()
-        logger.info(START)
+        Logger.info(START)
         self.bot.polling(none_stop=True, interval=interval)
 
     def check_is_admin(self, message: Message):

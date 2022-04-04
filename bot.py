@@ -3,7 +3,6 @@ import os
 import requests
 
 from modules.settings.default_settings import TELEGRAM_TOKEN
-from modules.bot_logger import get_info_logs_tail, to_telegram_logs
 from modules.camera.camera import Camera
 from modules.base_bot import BaseBot, Message
 
@@ -47,12 +46,13 @@ class GAMbot(BaseBot):
             requests.get('https://ident.me').text
         )
 
-    def command_logs(self, message: Message):
-        self.check_is_admin(message)
-        self.bot.send_message(
-            message.from_user.id,
-            to_telegram_logs(get_info_logs_tail(5))
-        )
+    # def command_logs(self, message: Message):
+    #     self.check_is_admin(message)
+    #     self.bot.send_message(
+    #         message.from_user.id,
+    #         to_telegram_logs(get_info_logs_tail(5))
+    #     )
+    # нужно переделать
 
 
 bot = GAMbot(TELEGRAM_TOKEN)

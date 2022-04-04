@@ -20,7 +20,7 @@ class User(Base):
 class Log(Base):
     __tablename__ = 'logs'
     pk = sql.Column(sql.Integer, primary_key=True, autoincrement=True)
-    user = sql.Column(sql.Integer, sql.ForeignKey('users.pk'))
+    user = sql.Column(sql.Integer, sql.ForeignKey('users.pk'), nullable=True)
     type = sql.Column(sql.String(50))
     command = sql.Column(sql.String(50), nullable=True)
     message = sql.Column(sql.String(256), nullable=True)
