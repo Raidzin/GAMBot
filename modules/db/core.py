@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from modules.settings.default_settings import DB_FILE_ABSOLUTE_PATH
+from modules.settings.default_settings import DB_PATH
 
-engine = create_engine(f'sqlite:////{DB_FILE_ABSOLUTE_PATH}')
+engine = create_engine(f'sqlite:////{DB_PATH}')
 engine.connect()
 
 
