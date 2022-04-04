@@ -8,6 +8,8 @@ ADMIN_ID = get_token('ADMIN_ID')
 BASE_PATH = os.getcwd()
 LOG_FILE_ABSOLUTE_PATH = os.path.join(BASE_PATH, '.GAM.log')
 
+DB_FILE_ABSOLUTE_PATH = r'pythonProject\GAM_Bot\modules\db\db.sqlite3'
+
 CAMERA_ENABLED = True
 if CAMERA_ENABLED:
     CAMERA_TOKEN = get_token('CAMERA_TOKEN')

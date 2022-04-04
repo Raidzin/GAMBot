@@ -14,9 +14,11 @@ class GAMbot(BaseBot):
         self.bot.send_message(message.from_user.id, ':0')
 
     def command_photo(self, message: Message):
+        self.check_is_known(message)
         self.bot.send_photo(message.from_user.id, Camera.get_photo())
 
     def command_video(self, message: Message):
+        self.check_is_known(message)
         self.bot.send_message(message.from_user.id, 'подождите 10 сек')
         filename = Camera.get_video()
         with open(filename, 'rb') as video:
@@ -24,6 +26,7 @@ class GAMbot(BaseBot):
         os.remove(filename)
 
     def command_switch(self, message: Message):
+        self.check_is_admin(message)
         enabled = Camera.switch()
         self.bot.send_message(
             message.from_user.id,
@@ -31,18 +34,21 @@ class GAMbot(BaseBot):
         )
 
     def command_commands(self, message: Message):
+        self.check_is_admin(message)
         self.bot.send_message(
             message.from_user.id,
             '\n'.join(['/' + command for command in self.commands])
         )
 
     def command_ip(self, message: Message):
+        self.check_is_admin(message)
         self.bot.send_message(
             message.from_user.id,
             requests.get('https://ident.me').text
         )
 
     def command_logs(self, message: Message):
+        self.check_is_admin(message)
         self.bot.send_message(
             message.from_user.id,
             to_telegram_logs(get_info_logs_tail(5))
