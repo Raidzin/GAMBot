@@ -1,11 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from sqlalchemy.pool import NullPool
 
 from modules.settings.default_settings import DB_PATH, DB_PATH_IS_ABSOLUTE
 
 path = '////' if DB_PATH_IS_ABSOLUTE else '///'
 
-engine = create_engine(f'sqlite:{path}{DB_PATH}?check_same_thread=False')
+engine = create_engine(f'sqlite:{path}{DB_PATH}?check_same_thread=False',
+                       poolclass=NullPool)
 engine.connect()
 
 
