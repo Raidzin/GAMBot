@@ -7,11 +7,15 @@ from modules.settings.default_settings import DB_PATH, DB_PATH_IS_ABSOLUTE
 path = '////' if DB_PATH_IS_ABSOLUTE else '///'
 
 
-def get_session():
+def get_engine():
     engine = create_engine(f'sqlite:{path}{DB_PATH}?check_same_thread=False',
                            poolclass=NullPool)
     engine.connect()
-    return Session(bind=engine)
+    return engine
+
+
+def get_session():
+    return Session(bind=get_engine())
 
 
 def get_or_create(model, defaults=None, **kwargs):

@@ -2,8 +2,8 @@ from sys import argv
 
 
 def migrate():
-    from modules.db.models import Base, engine
-    Base.metadata.create_all(engine)
+    from modules.db.models import Base, get_engine
+    Base.metadata.create_all(get_engine())
     print('База данных успешно записана!')
 
 

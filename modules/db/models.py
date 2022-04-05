@@ -3,7 +3,7 @@ from datetime import datetime
 import sqlalchemy as sql
 from sqlalchemy.ext.declarative import declarative_base
 
-from modules.db.core import engine
+from modules.db.core import get_engine
 
 Base = declarative_base()
 
@@ -28,4 +28,4 @@ class Log(Base):
 
 
 if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(get_engine())
