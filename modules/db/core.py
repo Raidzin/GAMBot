@@ -6,12 +6,11 @@ from modules.settings.default_settings import DB_PATH, DB_PATH_IS_ABSOLUTE
 
 path = '////' if DB_PATH_IS_ABSOLUTE else '///'
 
-engine = create_engine(f'sqlite:{path}{DB_PATH}?check_same_thread=False',
-                       poolclass=NullPool)
-engine.connect()
-
 
 def get_session():
+    engine = create_engine(f'sqlite:{path}{DB_PATH}?check_same_thread=False',
+                           poolclass=NullPool)
+    engine.connect()
     return Session(bind=engine)
 
 
