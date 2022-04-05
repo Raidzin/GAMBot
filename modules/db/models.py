@@ -24,7 +24,7 @@ class Log(Base):
     type = sql.Column(sql.String(50))
     command = sql.Column(sql.String(50), nullable=True)
     message = sql.Column(sql.String(256), nullable=True)
-    datetime = sql.Column(sql.DateTime, default=datetime.now())
+    datetime = sql.Column(sql.DateTime, default=datetime.now)
 
 
 if __name__ == '__main__':
